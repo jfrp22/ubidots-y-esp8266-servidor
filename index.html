@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Datos de Ubidots</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <h1>Datos de Ubidots</h1>
+  <div id="data"></div>
+
+  <script>
+    const ubidotsToken = "TU_TOKEN_DE_UBIDOTS";
+    const ubidotsVariableId = "ID_DE_LA_VARIABLE"; // ID de la variable en Ubidots
+    const ubidotsUrl = `https://industrial.api.ubidots.com/api/v1.6/variables/${ubidotsVariableId}/values`;
+
+    axios.get(ubidotsUrl, {
+      headers: {
+        "X-Auth-Token": ubidotsToken
+      }
+    })
+    .then(response => {
+      const data = response.data.results;
+      document.getElementById("data").innerText = JSON.stringify(data, null, 2);
+    })
+    .catch(error => {
+      console.error("Error al obtener los datos:", error);
+    });
+  </script>
+</body>
+</html>
